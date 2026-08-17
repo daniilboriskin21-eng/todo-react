@@ -1,12 +1,18 @@
-const TodoInfo = () => {
+const TodoInfo = (props) => {
+  const { totalTasks = 0, doneTasks = 0 } = props;
+
+  const hasTasks = totalTasks > 0;
+
   return (
     <div className="todo__info">
       <div className="todo__total-tasks">
-        Total tasks: <span>0</span>
+        Done {doneTasks} from {totalTasks}
       </div>
-      <button className="todo__delete-all-button" type="button">
-        Delete all
-      </button>
+      {hasTasks && (
+        <button className="todo__delete-all-button" type="button">
+          Delete all
+        </button>
+      )}
     </div>
   );
 };
