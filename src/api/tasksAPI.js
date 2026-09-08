@@ -9,6 +9,15 @@ const tasksAPI = {
     return fetch(URL).then((response) => response.json());
   },
 
+  getById: (id) => {
+    return fetch(`${URL}/${id}`).then((response) => {
+      if (!response.ok) {
+        throw new Error(`Task not found`);
+      }
+      return response.json();
+    });
+  },
+
   add: (task) => {
     return fetch(URL, {
       method: "POST",
@@ -18,7 +27,7 @@ const tasksAPI = {
   },
 
   delete: (id) => {
-    return fetch(`${URL}${id}`, {
+    return fetch(`${URL}/${id}`, {
       method: "DELETE",
     });
   },
@@ -33,10 +42,10 @@ const tasksAPI = {
 
   toggleComplete: (id, isDone) => {
     return fetch(`${URL}/${id}`, {
-        method: "PATCH",
-        headers,
-        body: JSON.stringify({ isDone }),
-      })
+      method: "PATCH",
+      headers,
+      body: JSON.stringify({ isDone }),
+    });
   },
 };
 
