@@ -1,12 +1,77 @@
-# React + Vite
+# Todo React
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Небольшое приложение для управления задачами на React. В нем можно добавлять задачи, искать их, отмечать выполненными, удалять и открывать отдельную страницу задачи.
 
-Currently, two official plugins are available:
+## Возможности
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- добавление задач с проверкой пустого названия;
+- поиск по списку задач;
+- отметка задачи как выполненной;
+- удаление одной задачи или очистка списка;
+- отдельная страница задачи по адресу `/tasks/:id`;
+- сохранение данных в `localStorage`, поэтому список не пропадает после перезагрузки;
+- адаптер для работы с локальным REST API через `json-server`.
 
-## Expanding the ESLint configuration
+## Стек
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React 19;
+- Vite;
+- Sass/SCSS;
+- React Context для состояния задач;
+- ESLint;
+- `json-server` для локального mock API.
+
+## Запуск
+
+Понадобятся Node.js и npm.
+
+```bash
+npm install
+npm run dev
+```
+
+После запуска приложение будет доступно по адресу, который выведет Vite в терминале, обычно `http://localhost:5173`.
+
+## Команды
+
+| Команда | Назначение |
+| --- | --- |
+| `npm run dev` | Запустить dev-сервер с hot reload |
+| `npm run build` | Собрать production-версию в `dist/` |
+| `npm run preview` | Локально открыть production-сборку |
+| `npm run lint` | Проверить код ESLint |
+| `npm run server` | Запустить `json-server` на `http://localhost:3001` |
+| `npm run deploy` | Собрать проект и опубликовать `dist/` через `gh-pages` |
+
+## Хранение данных
+
+По умолчанию задачи хранятся в браузере под ключом `tasks` в `localStorage`. Чтобы начать с чистого списка, удалите этот ключ в DevTools или очистите данные сайта.
+
+В репозитории также есть `db.json5` и серверный адаптер. Для его запуска откройте второй терминал:
+
+```bash
+npm run server
+```
+
+Сейчас приложение использует локальный адаптер задач, поэтому для обычной разработки второй сервер запускать не нужно. Переключение адаптера выполняется в `src/shared/api/tasks/index.js`.
+
+## Структура проекта
+
+```text
+src/
+├── app/                  # Точка входа, маршрутизация и глобальные стили
+├── entities/todo/        # Модель задач и компоненты todo
+├── features/             # Добавление и поиск задач, статистика
+├── pages/                # Страницы списка и отдельной задачи
+├── shared/               # API, UI-компоненты, хуки и утилиты
+└── widgets/              # Составные блоки интерфейса
+```
+
+## Production-сборка
+
+```bash
+npm run build
+npm run preview
+```
+
+Для публикации на GitHub Pages используется базовый путь `/todo-react/`, который автоматически задается Vite в production-режиме.
